@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react'
-import { getSelection, setSelection } from '../lib/format'
 
 interface EditorProps {
   /** Current markdown content */

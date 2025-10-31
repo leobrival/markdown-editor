@@ -1,5 +1,6 @@
 import React from 'react'
-import { FORMATTING_ACTIONS, FormattingAction } from '../lib/format'
+import { FORMATTING_ACTIONS } from '../lib/format'
+import { FormattingAction } from '../types'
 
 interface ToolbarProps {
   /** Callback when a formatting action is clicked */

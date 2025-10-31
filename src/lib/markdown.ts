@@ -7,31 +7,49 @@ import { marked } from 'marked'
 import hljs from 'highlight.js'
 
 /**
+ * Escape HTML special characters to prevent XSS
+ * @param text - Text to escape
+ * @returns Escaped text
+ */
+const escapeHtml = (text: string): string => {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  }
+  return text.replace(/[&<>"']/g, (char) => map[char])
+}
+
+/**
  * Initialize marked with custom settings for GitHub Flavored Markdown
  */
 const initializeMarked = () => {
-  // Configure marked options
-  marked.setOptions({
-    breaks: true, // Convert \n in paragraphs into <br>
-    gfm: true, // GitHub Flavored Markdown
-  })
+  // Configure marked with custom renderer for syntax highlighting
+  marked.use({
+    breaks: true,
+    gfm: true,
+    renderer: {
+      codespan(token) {
+        return `<code class="hljs-inline">${escapeHtml(token.text)}</code>`
+      },
+      code(token) {
+        const language = token.lang || 'plaintext'
+        let highlighted = token.text
 
-  // Set up syntax highlighting
-  marked.setOptions({
-    highlight: (code: string, lang: string) => {
-      if (lang && hljs.getLanguage(lang)) {
         try {
-          return hljs.highlight(code, { language: lang }).value
+          if (hljs.getLanguage(language)) {
+            highlighted = hljs.highlight(token.text, { language }).value
+          } else {
+            highlighted = hljs.highlightAuto(token.text).value
+          }
         } catch (err) {
           console.error('Highlight error:', err)
-          return code
         }
-      }
-      try {
-        return hljs.highlightAuto(code).value
-      } catch (err) {
-        return code
-      }
+
+        return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>`
+      },
     },
   })
 }
@@ -62,22 +80,6 @@ export const markdownToHtml = (markdown: string): string => {
       <p style="margin-top: 8px; font-family: monospace; font-size: 12px;">${escapeHtml(errorMessage)}</p>
     </div>`
   }
-}
-
-/**
- * Escape HTML special characters to prevent XSS
- * @param text - Text to escape
- * @returns Escaped text
- */
-const escapeHtml = (text: string): string => {
-  const map: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
-  }
-  return text.replace(/[&<>"']/g, (char) => map[char])
 }
 
 /**

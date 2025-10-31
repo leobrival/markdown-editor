@@ -18,6 +18,7 @@ import {
   formatImage,
   insertTable,
   insertHorizontalRule,
+  FORMATTING_ACTIONS,
 } from '../lib/format'
 
 interface LayoutProps {
