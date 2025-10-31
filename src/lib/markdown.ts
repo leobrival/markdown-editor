@@ -55,9 +55,29 @@ export const markdownToHtml = (markdown: string): string => {
     // Ensure HTML is valid and wrapped properly
     return html || '<p></p>'
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     console.error('Markdown rendering error:', error)
-    return `<p>Error rendering markdown</p>`
+    return `<div class="markdown-error" style="color: #cb2431; padding: 16px; background-color: #fdeef0; border-radius: 6px; border-left: 4px solid #cb2431;">
+      <strong>Error rendering markdown:</strong>
+      <p style="margin-top: 8px; font-family: monospace; font-size: 12px;">${escapeHtml(errorMessage)}</p>
+    </div>`
   }
+}
+
+/**
+ * Escape HTML special characters to prevent XSS
+ * @param text - Text to escape
+ * @returns Escaped text
+ */
+const escapeHtml = (text: string): string => {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  }
+  return text.replace(/[&<>"']/g, (char) => map[char])
 }
 
 /**
