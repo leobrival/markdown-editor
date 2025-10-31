@@ -4,6 +4,7 @@ import './styles/globals.css'
 import './styles/markdown-preview.css'
 import { Document, EditorState } from './types'
 import { loadFromLocalStorage, saveToLocalStorage } from './lib/file'
+import Layout from './components/Layout'
 
 /**
  * Main Application Component
@@ -148,31 +149,15 @@ function App() {
           <div className="hidden px-4 py-2 sm:px-6 lg:px-8" id="toolbar-area" />
         </div>
 
-        {/* Editor and Preview split view area */}
-        <div className="flex flex-1 overflow-hidden">
-          {/* Editor area (placeholder for User Story 1 - Editor component) */}
-          <div
-            className="flex flex-1 flex-col overflow-hidden border-r border-gray-200 dark:border-gray-800"
-            role="region"
-            aria-label="Markdown editor"
-          >
-            {/* Editor component will be rendered here in Phase 3 */}
-            <div className="flex-1 overflow-hidden bg-white dark:bg-gray-950" id="editor-area" />
-          </div>
-
-          {/* Preview area (placeholder for User Story 1 - Preview component) */}
-          <div
-            className="flex flex-1 flex-col overflow-hidden"
-            role="region"
-            aria-label="Live markdown preview"
-          >
-            {/* Preview component will be rendered here in Phase 3 */}
-            <div
-              className="flex-1 overflow-y-auto bg-white dark:bg-gray-950"
-              id="preview-area"
-            />
-          </div>
-        </div>
+        {/* Editor and Preview split view area - User Story 1 MVP */}
+        <Layout
+          document={document}
+          editorState={editorState}
+          onContentChange={handleContentChange}
+          onEditorStateChange={handleEditorStateChange}
+          onFilenameChange={handleFilenameChange}
+          previewDebounce={500}
+        />
       </main>
 
       {/* Footer / Status bar (optional for future enhancements) */}
