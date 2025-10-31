@@ -197,6 +197,100 @@ const Layout: React.FC<LayoutProps> = ({
   }, [editorState.scrollPositionEditor])
 
   /**
+   * Handle keyboard shortcuts globally
+   */
+  React.useEffect(() => {
+    const handleKeyboardShortcuts = (e: KeyboardEvent) => {
+      const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform)
+      const ctrlKey = isMac ? e.metaKey : e.ctrlKey
+
+      if (!ctrlKey) return
+
+      // Ctrl+B = Bold
+      if (e.key === 'b' || e.key === 'B') {
+        e.preventDefault()
+        const action = FORMATTING_ACTIONS.find((a) => a.id === 'bold')
+        if (action) {
+          handleFormatting(
+            action,
+            document.content,
+            editorState.selectionStart,
+            editorState.selectionEnd
+          )
+        }
+      }
+      // Ctrl+I = Italic
+      else if (e.key === 'i' || e.key === 'I') {
+        e.preventDefault()
+        const action = FORMATTING_ACTIONS.find((a) => a.id === 'italic')
+        if (action) {
+          handleFormatting(
+            action,
+            document.content,
+            editorState.selectionStart,
+            editorState.selectionEnd
+          )
+        }
+      }
+      // Ctrl+D = Strikethrough
+      else if (e.key === 'd' || e.key === 'D') {
+        e.preventDefault()
+        const action = FORMATTING_ACTIONS.find((a) => a.id === 'strikethrough')
+        if (action) {
+          handleFormatting(
+            action,
+            document.content,
+            editorState.selectionStart,
+            editorState.selectionEnd
+          )
+        }
+      }
+      // Ctrl+K = Link
+      else if (e.key === 'k' || e.key === 'K') {
+        e.preventDefault()
+        const action = FORMATTING_ACTIONS.find((a) => a.id === 'link')
+        if (action) {
+          handleFormatting(
+            action,
+            document.content,
+            editorState.selectionStart,
+            editorState.selectionEnd
+          )
+        }
+      }
+      // Ctrl+Shift+I = Image
+      else if ((e.key === 'i' || e.key === 'I') && e.shiftKey) {
+        e.preventDefault()
+        const action = FORMATTING_ACTIONS.find((a) => a.id === 'image')
+        if (action) {
+          handleFormatting(
+            action,
+            document.content,
+            editorState.selectionStart,
+            editorState.selectionEnd
+          )
+        }
+      }
+      // Ctrl+` = Code
+      else if (e.key === '`') {
+        e.preventDefault()
+        const action = FORMATTING_ACTIONS.find((a) => a.id === 'code')
+        if (action) {
+          handleFormatting(
+            action,
+            document.content,
+            editorState.selectionStart,
+            editorState.selectionEnd
+          )
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyboardShortcuts)
+    return () => window.removeEventListener('keydown', handleKeyboardShortcuts)
+  }, [document.content, editorState, handleFormatting])
+
+  /**
    * Cleanup timeout on unmount
    */
   React.useEffect(() => {
@@ -283,7 +377,11 @@ const Layout: React.FC<LayoutProps> = ({
         >
           <Preview content={document.content} />
         </div>
+        {/* End Preview Pane */}
       </div>
+      {/* End Editor and Preview split view */}
+      </div>
+      {/* End Layout wrapper */}
     </div>
   )
 }

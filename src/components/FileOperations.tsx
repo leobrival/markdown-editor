@@ -126,27 +126,27 @@ const FileOperations: React.FC<FileOperationsProps> = ({
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1.5">
       {/* Download Button */}
       <button
         onClick={handleDownload}
         disabled={!content.trim()}
-        className="flex h-8 items-center gap-1 rounded bg-blue-600 px-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300 dark:bg-blue-700 dark:hover:bg-blue-600 dark:disabled:bg-gray-700"
-        title="Download markdown file"
+        className="flex h-8 items-center gap-1.5 rounded-md bg-gray-100 px-3 text-sm font-medium text-gray-700 transition-all hover:bg-gray-200 hover:text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
+        title="Download markdown file (Ctrl+Shift+S)"
         aria-label="Download markdown file"
       >
-        <span>⬇</span>
+        <span>↓</span>
         <span>Download</span>
       </button>
 
       {/* Upload Button */}
       <button
         onClick={handleUploadClick}
-        className="flex h-8 items-center gap-1 rounded bg-green-600 px-3 text-sm font-medium text-white transition-colors hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600"
-        title="Upload markdown file"
+        className="flex h-8 items-center gap-1.5 rounded-md bg-gray-100 px-3 text-sm font-medium text-gray-700 transition-all hover:bg-gray-200 hover:text-gray-900 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100"
+        title="Upload markdown file (Ctrl+Shift+O)"
         aria-label="Upload markdown file"
       >
-        <span>⬆</span>
+        <span>↑</span>
         <span>Upload</span>
       </button>
 
@@ -154,11 +154,11 @@ const FileOperations: React.FC<FileOperationsProps> = ({
       <button
         onClick={handleClear}
         disabled={!content.trim()}
-        className="flex h-8 items-center gap-1 rounded bg-red-600 px-3 text-sm font-medium text-white transition-colors hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-gray-300 dark:bg-red-700 dark:hover:bg-red-600 dark:disabled:bg-gray-700"
+        className="flex h-8 items-center gap-1.5 rounded-md bg-gray-100 px-3 text-sm font-medium text-gray-700 transition-all hover:bg-gray-200 hover:text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
         title="Clear document"
         aria-label="Clear document"
       >
-        <span>✕</span>
+        <span>⌫</span>
         <span>Clear</span>
       </button>
 

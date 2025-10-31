@@ -71,7 +71,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   }
 
   return (
-    <div className="flex flex-wrap gap-1 border-b border-gray-200 bg-gray-50 p-2 dark:border-gray-800 dark:bg-gray-900">
+    <div className="flex flex-wrap gap-1 border-b border-gray-200 bg-white/50 p-2.5 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-900/50">
       {/* Button group 1: Text formatting */}
       <div className="flex gap-1 border-r border-gray-300 pr-2 dark:border-gray-700">
         {FORMATTING_ACTIONS.slice(0, 4).map((action) => (
@@ -79,7 +79,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
             key={action.id}
             onClick={() => handleFormat(action)}
             disabled={isButtonDisabled(action)}
-            className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 bg-white text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
+            className="flex h-7 w-7 items-center justify-center rounded bg-gray-100 text-xs font-semibold text-gray-600 transition-all hover:bg-gray-200 hover:text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
             title={action.label}
             aria-label={action.label}
           >
@@ -95,7 +95,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
             key={action.id}
             onClick={() => handleFormat(action)}
             disabled={isButtonDisabled(action)}
-            className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 bg-white text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
+            className="flex h-7 w-7 items-center justify-center rounded bg-gray-100 text-xs font-semibold text-gray-600 transition-all hover:bg-gray-200 hover:text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
             title={action.label}
             aria-label={action.label}
           >
@@ -111,7 +111,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
             key={action.id}
             onClick={() => handleFormat(action)}
             disabled={isButtonDisabled(action)}
-            className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 bg-white text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
+            className="flex h-7 w-7 items-center justify-center rounded bg-gray-100 text-xs font-semibold text-gray-600 transition-all hover:bg-gray-200 hover:text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
             title={action.label}
             aria-label={action.label}
           >
@@ -127,7 +127,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
             key={action.id}
             onClick={() => handleFormat(action)}
             disabled={isButtonDisabled(action)}
-            className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 bg-white text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
+            className="flex h-7 w-7 items-center justify-center rounded bg-gray-100 text-xs font-semibold text-gray-600 transition-all hover:bg-gray-200 hover:text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 dark:disabled:bg-gray-900 dark:disabled:text-gray-600"
             title={action.label}
             aria-label={action.label}
           >

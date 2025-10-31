@@ -118,26 +118,32 @@ function App() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-white dark:bg-gray-950">
-      {/* Header */}
-      <header className="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
-        <div className="px-4 py-4 sm:px-6 lg:px-8">
-          <div className="mb-3 flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Markdown Editor MVP
+    <div className="flex min-h-screen flex-col bg-[#fafbfc] dark:bg-[#0d1117]">
+      {/* Vercel-style Header */}
+      <header className="border-b border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-700 dark:bg-[#010409]/80">
+        <div className="px-6 py-3 sm:px-8">
+          {/* Title Section */}
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <h1 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
+                Markdown Editor
               </h1>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Real-time preview with GitHub-style rendering
+              <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+                Write, preview & export markdown with Mermaid diagrams
               </p>
             </div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              {document.isDirty && <span className="ml-2 font-medium text-orange-600">Unsaved changes</span>}
+            <div className="flex items-center gap-3">
+              {document.isDirty && (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 dark:bg-amber-400/10 dark:text-amber-200">
+                  <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                  Unsaved
+                </span>
+              )}
             </div>
           </div>
 
           {/* File Operations */}
-          <div className="flex items-center justify-between border-t border-gray-200 pt-3 dark:border-gray-800">
+          <div className="mt-4 flex items-center gap-2">
             <FileOperations
               content={document.content}
               filename={document.filename}

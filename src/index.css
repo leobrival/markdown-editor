@@ -1,8 +1,8 @@
+@import 'github-markdown-css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import 'github-markdown-css';
 
 * {
   margin: 0;
