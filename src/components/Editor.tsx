@@ -71,6 +71,11 @@ const Editor = React.forwardRef<HTMLTextAreaElement, EditorProps>(
           textarea.selectionStart = textarea.selectionEnd = start + 2
         }, 0)
       }
+
+      // Common keyboard shortcuts (available for future use with custom events)
+      // Ctrl/Cmd+B = Bold, Ctrl/Cmd+I = Italic, Ctrl/Cmd+D = Strikethrough
+      // Ctrl/Cmd+K = Link, Ctrl/Cmd+Shift+I = Image
+      // These would be handled by parent component with custom event listeners
     }
 
     // Handle text change
