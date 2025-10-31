@@ -5,6 +5,7 @@ import './styles/markdown-preview.css'
 import { Document, EditorState } from './types'
 import { loadFromLocalStorage, saveToLocalStorage } from './lib/file'
 import Layout from './components/Layout'
+import FileOperations from './components/FileOperations'
 
 /**
  * Main Application Component
@@ -121,7 +122,7 @@ function App() {
       {/* Header */}
       <header className="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
         <div className="px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+          <div className="mb-3 flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Markdown Editor MVP
@@ -133,6 +134,24 @@ function App() {
             <div className="text-sm text-gray-500 dark:text-gray-400">
               {document.isDirty && <span className="ml-2 font-medium text-orange-600">Unsaved changes</span>}
             </div>
+          </div>
+
+          {/* File Operations */}
+          <div className="flex items-center justify-between border-t border-gray-200 pt-3 dark:border-gray-800">
+            <FileOperations
+              content={document.content}
+              filename={document.filename}
+              onFileLoaded={(content, filename) => {
+                setDocument({
+                  content,
+                  filename,
+                  createdAt: new Date(),
+                  modifiedAt: new Date(),
+                  isDirty: false,
+                })
+              }}
+              onClear={handleClearDocument}
+            />
           </div>
         </div>
       </header>
