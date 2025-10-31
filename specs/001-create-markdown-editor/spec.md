@@ -3,7 +3,8 @@
 **Feature Branch**: `001-create-markdown-editor`
 **Created**: 2025-10-31
 **Status**: Draft
-**Input**: User description: "Create a markdown editor MVP with real-time preview, basic formatting, and file operations"
+**Input**: User description: "Create a markdown editor MVP with real-time preview, basic formatting, and file operations. Built with Shadcn and featuring GitHub-style live markdown visualization"
+**Tech Context**: Web application using Shadcn component library with GitHub-inspired UI/UX
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -20,37 +21,39 @@
   - Demonstrated to users independently
 -->
 
-### User Story 1 - Edit Markdown with Real-Time Preview (Priority: P1)
+### User Story 1 - Edit Markdown with GitHub-Style Live Preview (Priority: P1)
 
-A user opens the editor and begins writing or editing markdown content. As they type, they see the rendered HTML preview update in real-time on the side of the screen. This gives them immediate visual feedback on how their markdown will appear when published.
+A user opens the editor and begins writing or editing markdown content. The interface features a split-view layout inspired by GitHub: markdown editor on the left with syntax highlighting, and a live HTML preview on the right that renders exactly as it would appear on GitHub. As they type, the preview updates in real-time, providing immediate visual feedback.
 
-**Why this priority**: This is the core MVP functionality. Without the ability to edit and preview markdown, the application has no value. It's the primary user journey.
+**Why this priority**: This is the core MVP functionality. Without the ability to edit and preview markdown with GitHub-style rendering, the application has no value. It's the primary user journey and defines the user experience.
 
-**Independent Test**: Can be fully tested by opening the editor, typing markdown content (headers, bold, italic, links), and verifying the preview panel shows correct HTML rendering. Delivers the essential editor experience.
+**Independent Test**: Can be fully tested by opening the editor, typing markdown content (headers, bold, italic, links, code blocks), and verifying the preview panel shows correct GitHub-style HTML rendering. Delivers the essential editor experience with familiar GitHub rendering.
 
 **Acceptance Scenarios**:
 
-1. **Given** the editor is open with an empty document, **When** a user types "# Hello World", **Then** the preview pane displays an H1 heading with "Hello World"
-2. **Given** markdown content with multiple formatting elements, **When** the user types changes, **Then** the preview updates within 500ms
-3. **Given** content with special characters and code blocks, **When** the user edits content, **Then** the preview correctly renders code blocks with syntax preservation
-4. **Given** a user pastes markdown content, **When** the paste completes, **Then** the preview immediately reflects the pasted content
+1. **Given** the editor is open with an empty document, **When** a user types "# Hello World", **Then** the preview pane displays an H1 heading styled with GitHub's typography
+2. **Given** markdown content with multiple formatting elements, **When** the user types changes, **Then** the preview updates within 500ms with GitHub-accurate rendering
+3. **Given** content with code blocks using backticks, **When** the user edits content, **Then** the preview renders code blocks with GitHub-style syntax highlighting
+4. **Given** a user pastes markdown content (including GitHub flavored markdown like tables/checkboxes), **When** the paste completes, **Then** the preview immediately reflects the content with accurate GitHub rendering
+5. **Given** the editor displays content, **When** examining the preview styling, **Then** it matches GitHub's default markdown rendering style (fonts, colors, spacing)
 
 ---
 
-### User Story 2 - Format Text with Toolbar Buttons (Priority: P2)
+### User Story 2 - Format Text with Shadcn Toolbar Buttons (Priority: P2)
 
-A user wants to quickly format text without typing markdown syntax. They select text and click formatting buttons (bold, italic, headers, etc.) in the toolbar, which automatically inserts or wraps the selected text with appropriate markdown syntax.
+A user wants to quickly format text without typing markdown syntax. They select text and click formatting buttons (bold, italic, headers, etc.) in the toolbar (built with Shadcn components), which automatically inserts or wraps the selected text with appropriate markdown syntax. The toolbar maintains a clean, modern aesthetic consistent with Shadcn design patterns.
 
-**Why this priority**: This dramatically improves usability for non-technical users and speeds up content creation. It's valuable for MVP but not required for basic functionality (users can type markdown directly).
+**Why this priority**: This dramatically improves usability for non-technical users and speeds up content creation. It's valuable for MVP but not required for basic functionality (users can type markdown directly). Shadcn components ensure consistent, professional UX.
 
-**Independent Test**: Can be tested by selecting text, clicking format buttons, and verifying correct markdown syntax is applied and preview updates.
+**Independent Test**: Can be tested by selecting text, clicking format buttons in the Shadcn toolbar, and verifying correct markdown syntax is applied and preview updates with GitHub-style rendering.
 
 **Acceptance Scenarios**:
 
-1. **Given** text is selected in the editor, **When** the bold button is clicked, **Then** the selected text is wrapped with ** markers and preview shows bold text
-2. **Given** text is selected, **When** the H1 button is clicked, **Then** "# " is added to the beginning of the line and preview shows H1 heading
-3. **Given** the cursor is in an empty paragraph, **When** the bullet list button is clicked, **Then** "- " is inserted and preview shows a list item
-4. **Given** the editor has content, **When** the link button is clicked with selected text, **Then** a markdown link [text](url) format is applied
+1. **Given** text is selected in the editor, **When** the bold Shadcn button is clicked, **Then** the selected text is wrapped with ** markers and preview shows bold text with GitHub styling
+2. **Given** text is selected, **When** the H1 Shadcn button is clicked, **Then** "# " is added to the beginning of the line and preview shows H1 heading with GitHub typography
+3. **Given** the cursor is in an empty paragraph, **When** the bullet list Shadcn button is clicked, **Then** "- " is inserted and preview shows a list item formatted like GitHub
+4. **Given** the editor has content, **When** the link Shadcn button is clicked with selected text, **Then** a markdown link [text](url) format is applied and preview shows GitHub-styled link
+5. **Given** the Shadcn toolbar is visible, **When** examining its appearance, **Then** it displays modern Shadcn styling consistent with the overall application design
 
 ---
 
@@ -87,16 +90,18 @@ A user can save their markdown content to a file on their computer and load prev
 
 ### Functional Requirements
 
-- **FR-001**: System MUST provide a split-view editor interface with markdown input on the left and live HTML preview on the right
-- **FR-002**: System MUST update the preview pane in real-time as users type (within 500ms of last keystroke)
-- **FR-003**: System MUST support standard markdown syntax including headers, bold, italic, links, lists, code blocks, and blockquotes
-- **FR-004**: System MUST provide a toolbar with buttons for basic formatting (Bold, Italic, Header, Bullet List, Link, Code)
-- **FR-005**: System MUST allow users to download their markdown content as a .md file with a user-specified filename
-- **FR-006**: System MUST allow users to upload and load .md files from their computer into the editor
-- **FR-007**: System MUST display clear error messages when file operations fail (invalid file format, read errors, etc.)
-- **FR-008**: System MUST handle markdown content up to 1MB without performance degradation
-- **FR-009**: Users MUST be able to clear the editor and start with a blank document
-- **FR-010**: System MUST preserve all markdown content during edit, preview, and file operations with no data loss
+- **FR-001**: System MUST provide a split-view editor interface built with Shadcn components, with markdown input on the left and live HTML preview on the right (GitHub-style rendering)
+- **FR-002**: System MUST update the preview pane in real-time as users type (within 500ms of last keystroke) with GitHub-accurate markdown rendering
+- **FR-003**: System MUST support standard markdown syntax including headers, bold, italic, links, lists, code blocks, blockquotes, and GitHub Flavored Markdown (tables, checkboxes, strikethrough)
+- **FR-004**: System MUST provide a toolbar built with Shadcn components featuring buttons for basic formatting (Bold, Italic, Header, Bullet List, Link, Code, Table, Checkbox)
+- **FR-005**: System MUST render the preview with GitHub's visual styling including typography, colors, spacing, and code syntax highlighting
+- **FR-006**: System MUST allow users to download their markdown content as a .md file with a user-specified filename
+- **FR-007**: System MUST allow users to upload and load .md files from their computer into the editor
+- **FR-008**: System MUST display clear error messages when file operations fail (invalid file format, read errors, etc.)
+- **FR-009**: System MUST handle markdown content up to 1MB without performance degradation
+- **FR-010**: Users MUST be able to clear the editor and start with a blank document
+- **FR-011**: System MUST preserve all markdown content during edit, preview, and file operations with no data loss
+- **FR-012**: All UI components MUST follow Shadcn design patterns and maintain visual consistency throughout the application
 
 ### Key Entities *(include if feature involves data)*
 
@@ -112,18 +117,23 @@ A user can save their markdown content to a file on their computer and load prev
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can write and preview markdown content with preview updating within 500ms of typing
-- **SC-002**: System correctly renders all supported markdown syntax elements (headers, bold, italic, lists, links, code blocks)
-- **SC-003**: File download completes successfully with correct filename and all content preserved
-- **SC-004**: File upload loads markdown content into editor accurately with no data corruption
-- **SC-005**: Editor remains responsive and usable when handling documents up to 1MB in size
-- **SC-006**: Formatting toolbar buttons correctly apply markdown syntax to selected text and update preview
-- **SC-007**: 100% of acceptance scenarios in User Stories pass without errors or data loss
-- **SC-008**: Editor provides clear, actionable error messages for all failure scenarios (invalid files, corrupt content, etc.)
+- **SC-001**: Users can write and preview markdown content with preview updating within 500ms of typing with GitHub-accurate rendering
+- **SC-002**: System correctly renders all supported markdown syntax elements (headers, bold, italic, lists, links, code blocks, tables, checkboxes) matching GitHub's visual style
+- **SC-003**: Preview pane styling exactly matches GitHub's default markdown rendering (verified against GitHub rendered markdown)
+- **SC-004**: File download completes successfully with correct filename and all content preserved
+- **SC-005**: File upload loads markdown content into editor accurately with no data corruption
+- **SC-006**: Editor remains responsive and usable when handling documents up to 1MB in size
+- **SC-007**: Formatting toolbar built with Shadcn components correctly applies markdown syntax to selected text and updates preview with GitHub styling
+- **SC-008**: All UI components follow Shadcn design patterns with consistent visual appearance
+- **SC-009**: 100% of acceptance scenarios in User Stories pass without errors or data loss
+- **SC-010**: Editor provides clear, actionable error messages for all failure scenarios (invalid files, corrupt content, etc.)
 
 ## Assumptions
 
 - Users have modern web browsers with JavaScript support and File API capabilities
-- Markdown syntax support follows CommonMark specification basics (users expect standard markdown)
+- Markdown rendering follows GitHub Flavored Markdown specification for consistency with users' expectations
+- Preview styling matches GitHub's default markdown rendering (fonts, colors, spacing, code syntax highlighting)
 - File operations use browser's native download/upload (no backend file storage required for MVP)
 - Content is stored only in browser memory during session (no persistence between sessions without explicit save)
+- Shadcn components are available and properly configured in the project for consistent UI implementation
+- GitHub-style markdown rendering is achieved through appropriate markdown-to-HTML library with GitHub-compatible CSS styling
