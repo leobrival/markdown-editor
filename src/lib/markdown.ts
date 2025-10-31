@@ -31,10 +31,10 @@ const initializeMarked = () => {
     breaks: true,
     gfm: true,
     renderer: {
-      codespan(token) {
+      codespan(token: any) {
         return `<code class="hljs-inline">${escapeHtml(token.text)}</code>`
       },
-      code(token) {
+      code(token: any) {
         const language = token.lang || 'plaintext'
         let highlighted = token.text
 
