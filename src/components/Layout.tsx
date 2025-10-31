@@ -1,7 +1,24 @@
 import React, { useRef, useState, useCallback } from 'react'
 import Editor from './Editor'
 import Preview from './Preview'
-import { Document, EditorState } from '../types'
+import Toolbar from './Toolbar'
+import { Document, EditorState, FormattingAction } from '../types'
+import {
+  formatBold,
+  formatItalic,
+  formatStrikethrough,
+  formatInlineCode,
+  formatHeading,
+  formatBulletList,
+  formatOrderedList,
+  formatTaskList,
+  formatBlockquote,
+  formatCodeBlock,
+  formatLink,
+  formatImage,
+  insertTable,
+  insertHorizontalRule,
+} from '../lib/format'
 
 interface LayoutProps {
   /** Current document content */
@@ -93,6 +110,84 @@ const Layout: React.FC<LayoutProps> = ({
   }, [onEditorStateChange])
 
   /**
+   * Handle formatting action from toolbar
+   */
+  const handleFormatting = (
+    action: FormattingAction,
+    textContent: string,
+    selectionStart: number,
+    selectionEnd: number
+  ) => {
+    let result
+
+    // Apply the appropriate formatting function based on action ID
+    switch (action.id) {
+      case 'bold':
+        result = formatBold(textContent, selectionStart, selectionEnd)
+        break
+      case 'italic':
+        result = formatItalic(textContent, selectionStart, selectionEnd)
+        break
+      case 'strikethrough':
+        result = formatStrikethrough(textContent, selectionStart, selectionEnd)
+        break
+      case 'code':
+        result = formatInlineCode(textContent, selectionStart, selectionEnd)
+        break
+      case 'heading1':
+        result = formatHeading(textContent, selectionStart, 1)
+        break
+      case 'heading2':
+        result = formatHeading(textContent, selectionStart, 2)
+        break
+      case 'heading3':
+        result = formatHeading(textContent, selectionStart, 3)
+        break
+      case 'bulletList':
+        result = formatBulletList(textContent, selectionStart)
+        break
+      case 'orderedList':
+        result = formatOrderedList(textContent, selectionStart)
+        break
+      case 'taskList':
+        result = formatTaskList(textContent, selectionStart)
+        break
+      case 'blockquote':
+        result = formatBlockquote(textContent, selectionStart)
+        break
+      case 'codeBlock':
+        result = formatCodeBlock(textContent, selectionStart)
+        break
+      case 'link':
+        result = formatLink(textContent, selectionStart, selectionEnd)
+        break
+      case 'image':
+        result = formatImage(textContent, selectionStart, selectionEnd)
+        break
+      case 'table':
+        result = insertTable(textContent, selectionStart)
+        break
+      case 'horizontalRule':
+        result = insertHorizontalRule(textContent, selectionStart)
+        break
+      default:
+        return
+    }
+
+    // Update content and cursor position
+    onContentChange(result.formattedText)
+
+    // Restore cursor position after content update
+    setTimeout(() => {
+      if (editorRef.current) {
+        editorRef.current.selectionStart = result.selectionStart
+        editorRef.current.selectionEnd = result.selectionEnd
+        editorRef.current.focus()
+      }
+    }, 0)
+  }
+
+  /**
    * Restore scroll positions when they change
    */
   React.useEffect(() => {
@@ -113,9 +208,19 @@ const Layout: React.FC<LayoutProps> = ({
   }, [])
 
   return (
-    <div className="flex flex-1 overflow-hidden">
-      {/* Editor Pane */}
-      <div className="flex flex-1 flex-col border-r border-gray-200 dark:border-gray-800">
+    <div className="flex flex-1 flex-col overflow-hidden">
+      {/* Toolbar */}
+      <Toolbar
+        onFormat={handleFormatting}
+        editorContent={document.content}
+        selectionStart={editorState.selectionStart}
+        selectionEnd={editorState.selectionEnd}
+      />
+
+      {/* Editor and Preview split view */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Editor Pane */}
+        <div className="flex flex-1 flex-col border-r border-gray-200 dark:border-gray-800">
         {/* Editor Header */}
         <div className="border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-800 dark:bg-gray-900">
           <input

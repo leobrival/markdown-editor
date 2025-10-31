@@ -3,6 +3,8 @@
  * Provides formatting functions for toolbar actions
  */
 
+import { FormattingAction } from '../types'
+
 /**
  * Represents the result of a formatting operation
  */
@@ -446,4 +448,164 @@ export const getCurrentWord = (
     start: wordStart,
     end: wordEnd,
   }
+}
+
+/**
+ * Formatting Actions Configuration
+ * Defines all available toolbar formatting actions
+ */
+export const FORMATTING_ACTIONS: FormattingAction[] = [
+  {
+    id: 'bold',
+    label: 'Bold',
+    icon: 'bold',
+    markdownPattern: '**',
+    wrapsSelection: true,
+    requiresSelection: false,
+    insertOnEmpty: 'bold text',
+  },
+  {
+    id: 'italic',
+    label: 'Italic',
+    icon: 'italic',
+    markdownPattern: '*',
+    wrapsSelection: true,
+    requiresSelection: false,
+    insertOnEmpty: 'italic text',
+  },
+  {
+    id: 'strikethrough',
+    label: 'Strikethrough',
+    icon: 'strikethrough',
+    markdownPattern: '~~',
+    wrapsSelection: true,
+    requiresSelection: false,
+    insertOnEmpty: 'strikethrough',
+  },
+  {
+    id: 'code',
+    label: 'Inline Code',
+    icon: 'code',
+    markdownPattern: '`',
+    wrapsSelection: true,
+    requiresSelection: false,
+    insertOnEmpty: 'code',
+  },
+  {
+    id: 'heading1',
+    label: 'Heading 1',
+    icon: 'heading1',
+    markdownPattern: '# ',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: '# Heading',
+  },
+  {
+    id: 'heading2',
+    label: 'Heading 2',
+    icon: 'heading2',
+    markdownPattern: '## ',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: '## Heading',
+  },
+  {
+    id: 'heading3',
+    label: 'Heading 3',
+    icon: 'heading3',
+    markdownPattern: '### ',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: '### Heading',
+  },
+  {
+    id: 'bulletList',
+    label: 'Bullet List',
+    icon: 'list',
+    markdownPattern: '- ',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: 'List item',
+  },
+  {
+    id: 'orderedList',
+    label: 'Ordered List',
+    icon: 'listOrdered',
+    markdownPattern: '1. ',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: 'List item',
+  },
+  {
+    id: 'taskList',
+    label: 'Task List',
+    icon: 'checkSquare',
+    markdownPattern: '- [ ] ',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: 'Task item',
+  },
+  {
+    id: 'blockquote',
+    label: 'Blockquote',
+    icon: 'quote',
+    markdownPattern: '> ',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: 'Blockquote',
+  },
+  {
+    id: 'codeBlock',
+    label: 'Code Block',
+    icon: 'codeBlock',
+    markdownPattern: '```\n\n```',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: 'code',
+  },
+  {
+    id: 'link',
+    label: 'Link',
+    icon: 'link',
+    markdownPattern: '[]()',
+    wrapsSelection: true,
+    requiresSelection: false,
+    insertOnEmpty: 'link text',
+  },
+  {
+    id: 'image',
+    label: 'Image',
+    icon: 'image',
+    markdownPattern: '![]()',
+    wrapsSelection: true,
+    requiresSelection: false,
+    insertOnEmpty: 'alt text',
+  },
+  {
+    id: 'table',
+    label: 'Table',
+    icon: 'table',
+    markdownPattern: '| Header | Header |\n|--------|--------|\n| Cell   | Cell   |',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: '',
+  },
+  {
+    id: 'horizontalRule',
+    label: 'Horizontal Rule',
+    icon: 'minus',
+    markdownPattern: '---',
+    wrapsSelection: false,
+    requiresSelection: false,
+    insertOnEmpty: '',
+  },
+]
+
+/**
+ * Get formatting action by ID
+ * @param actionId - The action ID to find
+ * @returns The formatting action or undefined
+ */
+export const getFormattingAction = (actionId: string): FormattingAction | undefined => {
+  return FORMATTING_ACTIONS.find((action) => action.id === actionId)
 }
