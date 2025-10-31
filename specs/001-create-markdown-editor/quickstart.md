@@ -10,47 +10,84 @@ This quickstart provides setup instructions and basic usage scenarios for the Ma
 - Node.js 18.x or higher
 - npm or yarn package manager
 - Modern web browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
+- Git and GitHub account (for deployment to GitHub Pages)
 
 ## Setup Instructions
 
-### 1. Initialize Project
+### 1. Initialize Vite Project with React + TypeScript
 
 ```bash
-# Create React app with TypeScript
-npx create-react-app markdown-editor --template typescript
+# Create Vite project with React and TypeScript
+npm create vite@latest markdown-editor -- --template react-ts
 
 cd markdown-editor
 ```
 
-### 2. Install Dependencies
+### 2. Install Vite Dependencies
 
 ```bash
-# Install Shadcn UI
-npm install -D shadcn-ui @radix-ui/react-dialog @radix-ui/react-dropdown-menu @radix-ui/react-popover
+# Install dependencies
+npm install
 
+# Install development dependencies for building
+npm install -D @vitejs/plugin-react
+```
+
+### 3. Configure Vite for GitHub Pages Deployment
+
+Edit `vite.config.ts`:
+
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  // For GitHub Pages deployment, set base to your repository name
+  // If deploying to https://github.com/username/markdown-editor
+  // set base to '/markdown-editor/'
+  // For project sites (not user/org pages)
+  base: process.env.GITHUB_PAGES ? '/markdown-editor/' : '/',
+})
+```
+
+### 4. Install and Configure Shadcn/ui with Vite
+
+```bash
+# Install Shadcn UI CLI
+npx shadcn-ui@latest init -d
+
+# Follow the prompts:
+# - Would you like to use TypeScript? Yes
+# - Which style would you prefer? Default
+# - Which color would you prefer as the base color? Slate
+# - Where is your global CSS file? src/index.css
+# - Would you like us to create a components/ui folder? Yes
+# - Would you like to use CSS variables for colors? Yes
+
+# Add required Shadcn components
+npx shadcn-ui@latest add button
+npx shadcn-ui@latest add tooltip
+npx shadcn-ui@latest add dropdown-menu
+```
+
+### 5. Install Project Dependencies
+
+```bash
 # Install markdown libraries
-npm install marked remark remark-react remark-gfm
+npm install remark remark-react remark-gfm marked markdown-it
 
 # Install GitHub markdown styling
 npm install github-markdown-css
 
-# Install syntax highlighting (optional but recommended)
+# Install syntax highlighting
 npm install highlight.js
 
 # Install testing dependencies
 npm install -D vitest @testing-library/react @testing-library/jest-dom @playwright/test
-```
 
-### 3. Configure Shadcn Components
-
-```bash
-# Initialize Shadcn UI in your project
-npx shadcn-ui@latest init
-
-# Add required components
-npx shadcn-ui@latest add button
-npx shadcn-ui@latest add tooltip
-npx shadcn-ui@latest add dropdown-menu
+# Install router for SPA navigation
+npm install react-router-dom
 ```
 
 ### 4. Project Structure
@@ -82,13 +119,13 @@ src/
 
 ## Running the Application
 
-### Development
+### Development with Vite
 
 ```bash
-npm start
+npm run dev
 ```
 
-The editor will be available at `http://localhost:3000`
+The editor will be available at `http://localhost:5173` (default Vite port)
 
 ### Build for Production
 
@@ -96,16 +133,40 @@ The editor will be available at `http://localhost:3000`
 npm run build
 ```
 
-Output will be in `build/` directory, ready for deployment.
+Output will be in `dist/` directory, optimized and minified for production.
+
+### Preview Production Build Locally
+
+```bash
+npm run preview
+```
+
+Preview the production build locally at `http://localhost:4173`
 
 ### Run Tests
 
 ```bash
-# Unit tests
+# Unit tests with Vitest
 npm run test
 
 # E2E tests with Playwright
 npm run test:e2e
+```
+
+### Configure Package.json Scripts
+
+Make sure your `package.json` has these scripts configured:
+
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:e2e": "playwright test"
+  }
+}
 ```
 
 ## Basic Usage Scenarios
@@ -373,26 +434,105 @@ Edit `src/styles/markdown-preview.css`:
 
 ## Deployment
 
-### Deploy to Vercel (Recommended for Next.js)
+### Deploy to GitHub Pages (Recommended)
+
+This project is configured to deploy to GitHub Pages for easy hosting directly from your GitHub repository.
+
+#### Option 1: Manual Deployment with gh-pages
 
 ```bash
+# Install gh-pages deployment tool
+npm install -D gh-pages
+
+# Build the project
+npm run build
+
+# Deploy to GitHub Pages (creates/updates gh-pages branch)
+npx gh-pages -d dist
+```
+
+#### Option 2: Automated Deployment with GitHub Actions
+
+Create `.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+```
+
+#### Configure GitHub Pages Settings
+
+1. Go to your repository Settings
+2. Navigate to "Pages" (left sidebar)
+3. Under "Build and deployment":
+   - Select "Deploy from a branch" OR "GitHub Actions"
+   - If using gh-pages: Select `gh-pages` branch and `/ (root)` folder
+   - If using GitHub Actions: Workflow will handle it automatically
+4. Click "Save"
+
+#### Access Your Deployed Site
+
+Your application will be available at:
+- `https://username.github.io/markdown-editor/` (if deploying to project repository)
+- `https://username.github.io/` (if deploying to user/org repository named `username.github.io`)
+
+Update `vite.config.ts` `base` option accordingly:
+
+```typescript
+// For project site
+base: '/markdown-editor/',
+
+// For user/org site
+base: '/',
+```
+
+### Alternative Deployments
+
+#### Deploy to Vercel
+
+```bash
+# Install Vercel CLI
 npm install -g vercel
+
+# Deploy
 vercel
 ```
 
-### Deploy to GitHub Pages
-
-```bash
-npm run build
-npm install -g gh-pages
-```
-
-### Deploy to Netlify
+#### Deploy to Netlify
 
 ```bash
 # Connect GitHub repo to Netlify
 # Configure build command: npm run build
-# Configure publish directory: build/
+# Configure publish directory: dist/
 ```
 
 ## Next Steps

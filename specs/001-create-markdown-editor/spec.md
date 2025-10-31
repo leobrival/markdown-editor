@@ -3,8 +3,8 @@
 **Feature Branch**: `001-create-markdown-editor`
 **Created**: 2025-10-31
 **Status**: Draft
-**Input**: User description: "Create a markdown editor MVP with real-time preview, basic formatting, and file operations. Built with Shadcn and featuring GitHub-style live markdown visualization"
-**Tech Context**: Web application using Shadcn component library with GitHub-inspired UI/UX
+**Input**: User description: "Create a markdown editor MVP with real-time preview, basic formatting, and file operations. Built with Shadcn/Vite and featuring GitHub-style live markdown visualization. Hosted on GitHub Pages."
+**Tech Context**: Vite + React 18 SPA with Shadcn/ui components, GitHub-style markdown rendering, deployed to GitHub Pages
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -135,5 +135,8 @@ A user can save their markdown content to a file on their computer and load prev
 - Preview styling matches GitHub's default markdown rendering (fonts, colors, spacing, code syntax highlighting)
 - File operations use browser's native download/upload (no backend file storage required for MVP)
 - Content is stored only in browser memory during session (no persistence between sessions without explicit save)
-- Shadcn components are available and properly configured in the project for consistent UI implementation
+- Shadcn/ui components are available and properly configured in Vite project for consistent UI implementation
 - GitHub-style markdown rendering is achieved through appropriate markdown-to-HTML library with GitHub-compatible CSS styling
+- Application will be built with Vite as the build tool and bundler (following https://ui.shadcn.com/docs/installation/vite)
+- Application will be deployed to GitHub Pages via GitHub Actions or manual deployment
+- GitHub Pages serves the static SPA from repository (either main branch root or /docs or gh-pages branch)

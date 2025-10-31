@@ -29,11 +29,11 @@ description: "Task list for Markdown Editor MVP implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project structure per implementation plan with directories: `src/components/`, `src/lib/`, `src/types/`, `src/styles/`, `public/`, `tests/`
-- [ ] T002 Initialize React 18 project with TypeScript and necessary dependencies listed in plan.md
-- [ ] T003 [P] Configure Tailwind CSS and Shadcn/ui integration
-- [ ] T004 [P] Setup build configuration for TypeScript and React
-- [ ] T005 [P] Configure ESLint and Prettier for code quality
+- [ ] T001 Create GitHub repository and initialize with git (link to markdown-editor remote repository)
+- [ ] T002 Initialize Vite project with React + TypeScript using `npm create vite@latest markdown-editor -- --template react-ts`
+- [ ] T003 [P] Install and configure Shadcn/ui with Vite following https://ui.shadcn.com/docs/installation/vite in `src/`
+- [ ] T004 [P] Configure Vite for GitHub Pages deployment in `vite.config.ts` (set base path for repository)
+- [ ] T005 [P] Setup GitHub Actions workflow for automated deployment to GitHub Pages in `.github/workflows/deploy.yml`
 
 ---
 
@@ -165,7 +165,7 @@ description: "Task list for Markdown Editor MVP implementation"
 - [ ] T065 Add integration tests for Editor component in `tests/integration/Editor.test.tsx`
 - [ ] T066 Add integration tests for Preview component in `tests/integration/Preview.test.tsx`
 - [ ] T067 Add e2e tests with Playwright for complete user flows in `tests/e2e/editor.spec.ts`
-- [ ] T068 [P] Configure and test deployment to Vercel/Netlify
+- [ ] T068 [P] Test GitHub Pages deployment: build project, manually deploy with `npx gh-pages -d dist`, verify site loads at https://username.github.io/markdown-editor/
 - [ ] T069 Validate all acceptance scenarios from quickstart.md work correctly
 - [ ] T070 Final code cleanup and documentation of components
 

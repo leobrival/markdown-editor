@@ -12,18 +12,23 @@ Build a web-based markdown editor MVP with real-time GitHub-style preview using 
 ## Technical Context
 
 **Language/Version**: TypeScript 5.x with React 18.x
+**Build Tool**: Vite (following https://ui.shadcn.com/docs/installation/vite)
 **Primary Dependencies**:
 - React 18.x (UI framework)
-- Shadcn/ui (component library)
+- React Router (client-side routing for SPA)
+- Shadcn/ui (component library with Vite integration)
+- Radix UI (accessible components foundation for Shadcn)
 - remark + remark-react (markdown parsing and rendering)
-- @github/markdown-toolbar-element or custom implementation (formatting toolbar)
-- GitHub Flavored Markdown library (markdown-it with GFM plugin)
-- GitHub-compatible CSS for markdown rendering (github-markdown-css or equivalent)
+- markdown-it with GFM plugin (GitHub Flavored Markdown support)
+- github-markdown-css (GitHub-style rendering)
+- Tailwind CSS (utility-first styling)
+- TypeScript (type safety)
 
 **Storage**: Browser localStorage for session state, File API for download/upload (no backend storage for MVP)
 **Testing**: Vitest + React Testing Library for unit/integration tests, Playwright for e2e tests
 **Target Platform**: Modern web browsers (Chrome, Firefox, Safari, Edge) with ES2020+ support
-**Project Type**: Single-page web application (frontend only, no backend required)
+**Project Type**: Vite-powered single-page web application (frontend only, no backend required)
+**Deployment**: GitHub Pages with automated builds via GitHub Actions (or manual gh-pages deployment)
 **Performance Goals**:
 - Preview update within 500ms of keystroke
 - Initial page load < 2 seconds
